@@ -24,6 +24,8 @@
     "@nestjs/core": "^10.3.9",
     "@nestjs/platform-express": "^10.3.9",
     "@nestjs/platform-fastify": "^10.3.9",
+    "ajv": "^8.16.0",
+    "json-schema-traverse": "^1.0.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
@@ -53,15 +55,24 @@
     "typescript": "^5.5.2"
   },
   "jest": {
-    "moduleFileExtensions": ["js", "json", "ts"],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "collectCoverageFrom": ["**/*.(t|j)s"],
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   },
-  "trustedDependencies": ["@nestjs/core", "@swc/core"]
+  "trustedDependencies": [
+    "@nestjs/core",
+    "@swc/core"
+  ]
 }
