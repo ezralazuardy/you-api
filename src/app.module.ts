@@ -1,12 +1,10 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MongooseModule } from '@nestjs/mongoose';
+import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
-import { ConfigModule } from '@nestjs/config';
-import { AuthController } from './auth/auth.controller';
-import { ProfileController } from './profile/profile.controller';
-import { MessageController } from './message/message.controller';
 
 /**
  * Get the database URI from the environment variables.
@@ -27,14 +25,10 @@ function getDatabaseUri(): string {
       isGlobal: true,
     }),
     MongooseModule.forRoot(getDatabaseUri()),
+    AuthModule,
     UserModule,
   ],
-  controllers: [
-    AppController,
-    AuthController,
-    ProfileController,
-    MessageController,
-  ],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
