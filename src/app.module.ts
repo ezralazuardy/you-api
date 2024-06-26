@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { HealthModule } from './health/health.module';
 
 /**
  * Get the database URI from the environment variables.
@@ -27,6 +28,7 @@ function getDatabaseUri(): string {
     MongooseModule.forRoot(getDatabaseUri()),
     AuthModule,
     UserModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

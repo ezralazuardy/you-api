@@ -13,6 +13,9 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
 
+  // starts listening for shutdown hooks
+  app.enableShutdownHooks();
+
   // set global validation pipe
   app.useGlobalPipes(new ValidationPipe());
 

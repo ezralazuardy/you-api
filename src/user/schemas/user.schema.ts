@@ -33,6 +33,9 @@ export class User {
 
   @Prop({ required: false })
   interest?: string;
+
+  @Prop({ required: false })
+  refreshToken?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
