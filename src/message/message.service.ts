@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { UserDocument } from '../user/schemas/user.schema';
 import { ClientProxy } from '@nestjs/microservices';
 import { InjectModel } from '@nestjs/mongoose';
-import { Message } from './schemas/message.schema';
 import { Model } from 'mongoose';
+import { UserDocument } from '../user/schemas/user.schema';
+import { Message } from './schemas/message.schema';
 import { MessageDto } from './dtos/message.dto';
 
 @Injectable()
