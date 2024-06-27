@@ -22,6 +22,6 @@ COPY --from=builder --chown=node:node /home/node/node_modules ./node_modules
 COPY --from=builder --chown=node:node /home/node/dist ./dist
 
 ARG PORT
-EXPOSE ${PORT:-3000}
+EXPOSE ${PORT:-8000}
 
 CMD ["node", "dist/main.js"]
