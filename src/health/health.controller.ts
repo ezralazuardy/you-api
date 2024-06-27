@@ -7,7 +7,7 @@ import {
   DiskHealthIndicator,
 } from '@nestjs/terminus';
 
-@Controller('health')
+@Controller('api/health')
 export class HealthController {
   constructor(
     private readonly health: HealthCheckService,

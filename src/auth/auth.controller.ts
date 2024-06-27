@@ -1,8 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   HttpCode,
   Post,
+  Put,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -39,8 +41,8 @@ export class AuthController {
     };
   }
 
+  @Delete('api/logout')
   @UseGuards(JwtGuard)
-  @Post('api/logout')
   @HttpCode(200)
   async logout(@Request() req: any) {
     const user = await this.authService.logout(req.user);
@@ -50,8 +52,8 @@ export class AuthController {
     };
   }
 
+  @Put('api/refresh')
   @UseGuards(JwtGuard)
-  @Post('api/refresh')
   @HttpCode(200)
   async refreshToken(@Request() req: any) {
     const user = await this.authService.refreshToken(req.user);
