@@ -19,6 +19,7 @@ async function bootstrap() {
   // set global validation pipe
   app.useGlobalPipes(new ValidationPipe());
 
+  // start the app
   await app.listen(8000, '0.0.0.0');
 }
 

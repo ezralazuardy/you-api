@@ -33,6 +33,6 @@ export class MessageService {
   }
 
   async sendMessage(messageDto: MessageDto) {
-    return this.rabbitClient.send('user_message', messageDto);
+    return this.rabbitClient.emit('user_message', messageDto);
   }
 }
