@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   HttpCode,
+  NotFoundException,
   Post,
   Request,
   UseGuards,
@@ -10,10 +11,14 @@ import {
 import { JwtGuard } from '../auth/jwt.guard';
 import { MessageService } from './message.service';
 import { SendMessageDto } from './dtos/send-message.dto';
+import { UserService } from 'src/user/user.service';
 
 @Controller()
 export class MessageController {
-  constructor(private readonly messageService: MessageService) {}
+  constructor(
+    private readonly messageService: MessageService,
+    private readonly userService: UserService,
+  ) {}
 
   @Get('api/viewMessage')
   @UseGuards(JwtGuard)
@@ -29,12 +34,26 @@ export class MessageController {
     @Request() req: any,
     @Body() sendMessageDto: SendMessageDto,
   ) {
+    // get the receiver
+    const receiver = await this.userService.getUserById(
+      sendMessageDto.receiver,
+    );
+
+    // check if receiver exists
+    if (!receiver) {
+      throw new NotFoundException('Receiver is not found.');
+    }
+
+    // set the message data
     const data = {
-      sender: req.user._id,
-      receiver: sendMessageDto.receiver,
-      data: sendMessageDto.data,
+      sender: req.user._id as string,
+      receiver: receiver._id as string,
+      data: sendMessageDto.data as string,
     };
+
+    // send the message
     await this.messageService.sendMessage(data);
+
     return data;
   }
 }

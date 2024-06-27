@@ -9,30 +9,40 @@ import { MessageDto } from './dtos/message.dto';
 @Injectable()
 export class MessageService {
   constructor(
-    @Inject('MESSAGE_SERVICE') private readonly rabbitClient: ClientProxy,
+    @Inject('MESSAGES_SERVICE') private readonly rabbitClient: ClientProxy,
     @InjectModel(Message.name) private readonly message: Model<Message>,
   ) {}
 
   async getAllMessages(user: UserDocument) {
-    // get the messages sent by user, and group it by receiver
-    const messages = await this.message.aggregate([
-      { $match: { sender: user._id } },
-      { $sort: { createdAt: 1 } },
+    // get the sender identifier
+    const sender = user._id.toString();
+
+    // get the messages sent by user,
+    // group it based on receiver,
+    // and order by creation time (asc)
+    return await this.message.aggregate([
+      {
+        $match: {
+          sender,
+        },
+      },
       {
         $group: {
           _id: '$receiver',
-          messages: {
-            $push: '$$ROOT',
-          },
+          messages: { $push: '$$ROOT' },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          receiver: '$_id',
+          messages: 1,
         },
       },
     ]);
-
-    // convert aggregation cursor to array
-    return messages.map((result) => result);
   }
 
   async sendMessage(messageDto: MessageDto) {
-    return this.rabbitClient.emit('user_message', messageDto);
+    this.rabbitClient.emit<MessageDto>('message_sent', messageDto);
   }
 }
