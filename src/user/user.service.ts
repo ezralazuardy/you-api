@@ -1,11 +1,16 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { File } from '@nest-lab/fastify-multer';
+import { AppService } from '../app.service';
 import { User, UserDocument } from './schemas/user.schema';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UserProfileDto } from './dtos/user-profile.dto';
 import { UpdateUserProfileDto } from './dtos/update-user-profile.dto';
-import { File } from '@nest-lab/fastify-multer';
 import { getNameInitialImageUrl } from './utils/image';
 import { getHoroscope } from './utils/horoscope';
 import { getZodiac } from './utils/zodiac';
@@ -13,7 +18,10 @@ import moment from 'moment-timezone';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private readonly user: Model<User>) {}
+  constructor(
+    private readonly appService: AppService,
+    @InjectModel(User.name) private readonly user: Model<User>,
+  ) {}
 
   async getAllUsers(): Promise<UserDocument[]> {
     return await this.user.find();
@@ -69,7 +77,9 @@ export class UserService {
       email: user.email,
       username: user.username,
       name: user.name ?? null,
-      avatar: user.avatar ?? getNameInitialImageUrl(user.name),
+      avatar: user.avatar
+        ? this.appService.getPublicUrl(user.avatar)
+        : getNameInitialImageUrl(user.name),
       height: user.height ?? null,
       weight: user.weight ?? null,
       interest: user.interest ?? null,
@@ -117,11 +127,17 @@ export class UserService {
   }
 
   async updateAvatar(user: UserDocument, image: File): Promise<string> {
+    const response = await this.appService.uploadFile(image);
+
+    if (!response) {
+      throw new InternalServerErrorException('Failed to upload image!');
+    }
+
     await this.user.findByIdAndUpdate(user._id, {
-      avatar: image.originalname,
+      avatar: response.Key ?? null,
     });
 
-    return image.originalname;
+    return this.appService.getPublicUrl(response.Key);
   }
 
   async removeAvatar(user: UserDocument): Promise<string> {

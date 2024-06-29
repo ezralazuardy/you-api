@@ -12,10 +12,10 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor, File } from '@nest-lab/fastify-multer';
 import { JwtGuard } from '../auth/jwt.guard';
 import { UserService } from './user.service';
 import { UpdateUserProfileDto } from './dtos/update-user-profile.dto';
-import { FileInterceptor, File } from '@nest-lab/fastify-multer';
 import { fileValidator } from './utils/validator';
 
 @Controller()
