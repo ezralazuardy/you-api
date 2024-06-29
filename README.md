@@ -1,4 +1,5 @@
 <div>
+  <img alt="Build" src="https://github.com/ezralazuardy/you-api/actions/workflows/docker-image.yml/badge.svg" />
   <img alt="CodeQL Analysis" src="https://github.com/ezralazuardy/you-api-message/actions/workflows/github-code-scanning/codeql/badge.svg" />
   <img alt="Koyeb" src="https://deploy-badge.vercel.app?url=https://you-api-message.koyeb.app&name=koyeb" />
 </div>
