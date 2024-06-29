@@ -44,5 +44,5 @@ jobs:
         uses: actions/attest-build-provenance@v1
         with:
           subject-name: docker.io/ezralazuardy/you-api
-          subject-digest: ${{ steps.push.outputs.digest }}
+          subject-digest: latest
           push-to-registry: true
