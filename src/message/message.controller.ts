@@ -54,6 +54,10 @@ export class MessageController {
     // send the message
     await this.messageService.sendMessage(data);
 
-    return data;
+    return {
+      statusCode: 201,
+      message: 'Message sent successfully.',
+      data,
+    };
   }
 }

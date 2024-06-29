@@ -5,6 +5,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import compression from '@fastify/compress';
 
 async function bootstrap() {
   // create the app
@@ -18,6 +19,9 @@ async function bootstrap() {
 
   // set global validation pipe
   app.useGlobalPipes(new ValidationPipe());
+
+  // enable compression
+  await app.register(compression);
 
   // start the app
   await app.listen(8000, '0.0.0.0');

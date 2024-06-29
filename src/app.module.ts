@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { HealthModule } from './health/health.module';
 import { MessageModule } from './message/message.module';
+import { FastifyMulterModule } from '@nest-lab/fastify-multer';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { MessageModule } from './message/message.module';
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.DATABASE_URL),
+    FastifyMulterModule,
     AuthModule,
     HealthModule,
     MessageModule,

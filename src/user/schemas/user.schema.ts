@@ -1,5 +1,9 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { HoroscopeDto } from '../utils/dtos/horoscope.dto';
+import { ZodiacDto } from '../utils/dtos/zodiac.dto';
+import { getHoroscope as defineHoroscope } from '../utils/horoscope';
+import { getZodiac as defineZodiac } from '../utils/zodiac';
 
 export type UserDocument = User & Document;
 
@@ -23,7 +27,7 @@ export class User {
   avatar?: string;
 
   @Prop({ required: false })
-  birthday?: Date;
+  birthday?: number;
 
   @Prop({ required: false })
   height?: number;
