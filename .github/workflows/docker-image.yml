@@ -45,4 +45,3 @@ jobs:
         with:
           subject-name: docker.io/ezralazuardy/you-api
           subject-digest: ${{ steps.push.outputs.digest }}
-          push-to-registry: true
