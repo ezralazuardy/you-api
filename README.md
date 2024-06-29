@@ -27,7 +27,7 @@ This instance is the core of RESTful API platform and meant to be directly consu
 
 <br/>
 
-> Written in [Typescript](https://www.typescriptlang.org) using [Nest](https://nestjs.com). Powered by [Koyeb](https://koyeb.com).
+> Written in [Typescript](https://www.typescriptlang.org) using [Nest](https://nestjs.com). Powered by [Docker](https://docker.com) and [Koyeb](https://koyeb.com).
 
 > #### Disclaimer
 >
