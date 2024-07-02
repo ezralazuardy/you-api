@@ -4,7 +4,7 @@ import * as AWS from 'aws-sdk';
 
 @Injectable()
 export class AppService {
-  s3: AWS.S3;
+  private readonly s3: AWS.S3;
 
   constructor() {
     this.s3 = new AWS.S3({
@@ -34,7 +34,7 @@ export class AppService {
     }
   }
 
-  getPublicUrl(key: string): string {
+  getFilePublicUrl(key: string): string {
     return `${process.env.R2_URL}/${key}`;
   }
 }

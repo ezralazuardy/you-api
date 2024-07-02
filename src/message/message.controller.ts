@@ -8,10 +8,12 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
+import { EventPattern, Payload } from '@nestjs/microservices';
 import { JwtGuard } from '../auth/jwt.guard';
 import { MessageService } from './message.service';
 import { SendMessageDto } from './dtos/send-message.dto';
 import { UserService } from 'src/user/user.service';
+import { MessageDto } from './dtos/message.dto';
 
 @Controller()
 export class MessageController {
@@ -59,5 +61,10 @@ export class MessageController {
       message: 'Message sent successfully.',
       data,
     };
+  }
+
+  @EventPattern('message_sent')
+  async handleUserMessage(@Payload() messageDto: MessageDto) {
+    await this.messageService.persistUserMessage(messageDto);
   }
 }

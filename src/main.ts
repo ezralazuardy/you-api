@@ -1,10 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import { AppModule } from './app.module';
+import { Transport } from '@nestjs/microservices';
 import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import { AppModule } from './app.module';
 import compression from '@fastify/compress';
 
 async function bootstrap() {
@@ -19,6 +20,21 @@ async function bootstrap() {
 
   // set global validation pipe
   app.useGlobalPipes(new ValidationPipe());
+
+  // set the rabbitmq microservice
+  app.connectMicroservice({
+    transport: Transport.RMQ,
+    options: {
+      urls: [process.env.RABBITMQ_URL],
+      queue: 'messages-queue',
+      queueOptions: {
+        durable: false,
+      },
+    },
+  });
+
+  // start the microservice
+  await app.startAllMicroservices();
 
   // enable compression
   await app.register(compression);

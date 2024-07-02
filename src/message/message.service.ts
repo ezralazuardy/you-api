@@ -1,7 +1,7 @@
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import { UserDocument } from '../user/schemas/user.schema';
 import { Message } from './schemas/message.schema';
 import { MessageDto } from './dtos/message.dto';
@@ -44,5 +44,9 @@ export class MessageService {
 
   async sendMessage(messageDto: MessageDto) {
     this.rabbitClient.emit<MessageDto>('message_sent', messageDto);
+  }
+
+  async persistUserMessage(messageDto: MessageDto) {
+    await this.message.create(messageDto);
   }
 }

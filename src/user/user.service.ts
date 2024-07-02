@@ -78,7 +78,7 @@ export class UserService {
       username: user.username,
       name: user.name ?? null,
       avatar: user.avatar
-        ? this.appService.getPublicUrl(user.avatar)
+        ? this.appService.getFilePublicUrl(user.avatar)
         : getNameInitialImageUrl(user.name),
       height: user.height ?? null,
       weight: user.weight ?? null,
@@ -137,7 +137,7 @@ export class UserService {
       avatar: response.Key ?? null,
     });
 
-    return this.appService.getPublicUrl(response.Key);
+    return this.appService.getFilePublicUrl(response.Key);
   }
 
   async removeAvatar(user: UserDocument): Promise<string> {
