@@ -1,14 +1,16 @@
 <div>
   <img alt="Build" src="https://github.com/ezralazuardy/you-api/actions/workflows/docker-image.yml/badge.svg" />
   <img alt="CodeQL Analysis" src="https://github.com/ezralazuardy/you-api-message/actions/workflows/github-code-scanning/codeql/badge.svg" />
-  <img alt="Koyeb" src="https://deploy-badge.vercel.app?url=https://you-api-message.koyeb.app&name=koyeb" />
+  <img alt="Koyeb" src="https://deploy-badge.vercel.app?url=https://you-api.koyeb.app&name=koyeb" />
 </div>
 
 ## 🛰️ you-api
 
 **🔗 Endpoint:** https://you-api.koyeb.app
 
-**📖 Documentation:** https://www.postman.com/speeding-shadow-723699/workspace/you-api
+**📘 Documentation:** [Postman](https://www.postman.com/speeding-shadow-723699/workspace/you-api)
+
+**📕 Technical Documentation:** [Notion](https://sky-cicada-919.notion.site/Technical-Documentation-You-App-RESTful-API-483f67d0d6994c50ae8210b8804df8e5)
 
 This is a sample of You App RESTful API.
 
